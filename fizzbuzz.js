@@ -8,11 +8,25 @@ fizzbuzz.number = function(num){
 
 // controller
 fizzbuzz.controller = function(){
-  var number = m.prop(fizzbuzz.number());
+  var display = m.prop(fizzbuzz.number());
+  var number = fizzbuzz.number();
+  var numberCheck = function(num){
+    if( num % 3 === 0 && num % 5 === 0){
+      return "FIZZBUZZ";
+    }
+    if( num % 3 === 0 ){
+      return "FIZZ";
+    }
+    if( num % 5 === 0 ){
+      return "BUZZ";
+    }
+    return num;
+  };
   return {
-    number: number,
-    increment: function(){
-      return number(fizzbuzz.number(number()));
+    display: display,
+    update: function(){
+      number = fizzbuzz.number(number);
+      return display(numberCheck(number));
     }
   };
 };
@@ -20,8 +34,8 @@ fizzbuzz.controller = function(){
 // view
 fizzbuzz.view = function(ctrl){
   return [
-    m("p", ctrl.number()),
-    m("button", {onclick: ctrl.increment}, "+1")
+    m("p", ctrl.display()),
+    m("button", {onclick: ctrl.update}, "+1")
   ];
 };
 
