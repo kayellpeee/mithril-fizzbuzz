@@ -1,4 +1,3 @@
-/* global fizzbuzz, describe, it, expect, should */
 function testMithril(mockWindow) {
   window = m.deps(mockWindow);
 
@@ -6,25 +5,28 @@ function testMithril(mockWindow) {
     return typeof fizzbuzz === 'object';
   });
 
-  // model should be a function that returns a number
   test(function(){
+    // model should be a function
     return typeof fizzbuzz.number === 'function';
   });
   test(function(){
-    return typeof fizzbuzz.number() === 'number';
+    // should return a function
+    return typeof fizzbuzz.number() === 'function';
   });
-  // should return 0 if no number is passed in
   test(function(){
-    return fizzbuzz.number() === 0;
-  });
-  // should increment by 1 if passed a number
-  test(function(){
+    // should return 0 from first call
     var num = fizzbuzz.number();
-    return fizzbuzz.number(num) === 1;
+    return num() === 0;
+  });
+  test(function(){
+    // should increment by 1 each time function is called
+    var num = fizzbuzz.number();
+    num();
+    return num() === 1;
   });
 
-  // controller should be a function that returns an object
   test(function(){
+    // controller should be a function that returns an object
     return typeof fizzbuzz.controller === 'function';
   });
   test(function(){
@@ -34,12 +36,12 @@ function testMithril(mockWindow) {
     return typeof fizzbuzz.controller().update === 'function';
   });
 
-  // view should be a function that interacts with controller
   test(function(){
+    // view should be a function that interacts with controller
     return typeof fizzbuzz.view === 'function';
   });
-  // should follow proper fizzbuzz rules (i.e. FIZZ if n % 3, BUZZ n % 5, FIZZBUZZ n % 5 & 3. else n)
   test(function(){
+    // should follow proper fizzbuzz rules (i.e. FIZZ if n % 3, BUZZ n % 5, FIZZBUZZ n % 5 & 3. else n)
     var root = mockWindow.document.createElement("div");
     m.render(root, fizzbuzz.view(fizzbuzz.controller()));
 
