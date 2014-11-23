@@ -2,14 +2,17 @@
 var fizzbuzz = {};
 
 // model
-fizzbuzz.number = function(num){
-  return num + 1 || 0;
+fizzbuzz.number = function(){
+  var number = -1;
+  return function(){
+    return number += 1;
+  };
 };
 
 // controller
 fizzbuzz.controller = function(){
-  var display = m.prop(fizzbuzz.number());
   var number = fizzbuzz.number();
+  var display = m.prop(number());
   var numberCheck = function(num){
     if( num % 3 === 0 && num % 5 === 0){
       return "FIZZBUZZ";
@@ -25,8 +28,7 @@ fizzbuzz.controller = function(){
   return {
     display: display,
     update: function(){
-      number = fizzbuzz.number(number);
-      return display(numberCheck(number));
+      return display(numberCheck(number()));
     }
   };
 };
