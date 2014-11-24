@@ -26,14 +26,22 @@ function testMithril(mockWindow) {
   });
 
   test(function(){
-    // controller should be a function that returns an object
+    // controller should be a function
     return typeof fizzbuzz.controller === 'function';
   });
   test(function(){
-    return typeof fizzbuzz.controller() === 'object';
+    // view model should be an object
+    return typeof fizzbuzz.vm === 'object';
   });
   test(function(){
-    return typeof fizzbuzz.controller().update === 'function';
+    // controller should initialize view model for current view
+    fizzbuzz.controller();
+    return typeof fizzbuzz.vm.number === 'function';
+  });
+  test(function(){
+    // numberCheck should return number or proper string accoding to fizzbuzz rules
+    fizzbuzz.controller();
+    return fizzbuzz.vm.numberCheck(30) === 'FIZZBUZZ';
   });
 
   test(function(){
