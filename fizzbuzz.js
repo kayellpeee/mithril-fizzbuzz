@@ -10,7 +10,7 @@ fizzbuzz.number = function(){
 };
 
 // vm
-fizzbuzz.vm = new function(){
+fizzbuzz.vm = (function(){
   var vm = {};
   vm.init = function(){
     vm.number = fizzbuzz.number();
@@ -32,7 +32,7 @@ fizzbuzz.vm = new function(){
     }
   }
   return vm;
-};
+}());
 
 // controller
 fizzbuzz.controller = function(){
